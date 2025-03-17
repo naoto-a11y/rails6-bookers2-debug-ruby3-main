@@ -4,6 +4,7 @@ class BooksController < ApplicationController
     @bookshow = Book.find(params[:id])
     @user = @bookshow.user
     @book = Book.new
+    @bookcomment = BookComment.new
   end
 
   def index
@@ -48,11 +49,12 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
-end
 
-def is_matching_login_user
-  user = Book.find(params[:id])
-  unless user.user_id == current_user.id
-    redirect_to books_path
+
+  def is_matching_login_user
+    user = Book.find(params[:id])
+    unless user.user_id == current_user.id
+      redirect_to books_path
+    end
   end
 end
