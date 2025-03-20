@@ -17,7 +17,7 @@
             <% end %>
           </td>
           <td><%= link_to @bookshow.title, book_path(@bookshow.id) %></td>
-          <td><%= @bookshow.body %></td>
+          <td class="text-break"><%= @bookshow.body %></td>
           <% if current_user.id == @bookshow.user_id %>
             <td><%= link_to 'Edit', edit_book_path(@bookshow.id), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', book_path(@bookshow.id), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
@@ -38,14 +38,23 @@
             <% end %>
             <td>コメント数： <%= @bookshow.book_comments.count %></td>
           </td>
-          </tr>
+        </tr>
       </table>
-      <% @bookshow.book_comments.each do |bookshow| %>
-        <p>
-          <%= bookshow.comment %>
-          <%= link_to 'Destroy', book_book_comment_path(bookshow.id), method: :delete, class: "btn btn-sm btn-danger"%>
-        </p>
-      <% end %>
+      <table>
+        <% @bookshow.book_comments.each do |bookshow| %>
+          <tr>
+            <td>
+              <%= link_to user_path(bookshow.user) do %>
+                <%= image_tag @bookshow.user.get_profile_image, size:"50x50" %><br>
+                <%= @bookshow.user.name %>
+              <% end %>
+            </td>
+            <td class="text-break"><%= bookshow.comment %></td>     
+            <td><%= link_to 'Destroy', book_book_comment_path(@bookshow,bookshow.id), method: :delete, class: "btn btn-sm btn-danger"%></td>
+          </tr>
+        <% end %>
+      </table>
+      
       <%= form_with model: [@bookshow, @bookcomment] do |f| %>
         <div>
         <%= f.label :comment %>

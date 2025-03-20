@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'relationships/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to =>"homes#top"
   devise_for :users
@@ -10,7 +11,11 @@ Rails.application.routes.draw do
     resource :favorite, only: [:create, :destroy]
   end
 
-  resources :users, only: [:index,:show,:edit,:update]
-  
+  resources :users, only: [:index,:show,:edit,:update] do
+    resource :relationships, only: [:create, :destroy] 
+      get :follows, on: :member
+      get :followers, on: :member
+  end
+   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
