@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: [:about, :top]
+  before_action :search_form, except: [:about, :top]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
@@ -16,4 +17,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end
   
+  def search_form
+    @search = true
+  end
 end

@@ -10,12 +10,16 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-  
     <%= render 'layouts/header' %>
-      <%= notice %>
-      <main>
+    <% if @search == true %>
+      <div class="d-flex justify-content-center mt-2">
+        <%= render 'searches/search' %>
+      </div>
+    <% end %>
+    <%= notice %>
+    <main>
       <p><%= yield %></p>
-      </main>
+    </main>
     <%= render 'layouts/footer' %>
   </body>
 </html>

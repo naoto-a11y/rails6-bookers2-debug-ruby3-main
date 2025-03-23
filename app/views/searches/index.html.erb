@@ -1,0 +1,64 @@
+<% if @users.present? %>
+  <div class="container">
+    <div class="row">
+      <div class="col" >
+      <h2>Users search for "<%= @word %>"</h2>
+        <table class= "w-100">
+          <tr class= "border-top border-dark-subtle" >
+            <th></th>
+            <th><h3>name</h3></th>
+            <th><h3>Introduction</h3></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr class= "border-top border-dark-subtle">
+              <td><%= image_tag user.get_profile_image, size:'100x100' %></td>
+              <td>
+                <%= link_to user_path(user.id) do %>
+                  <%= user.name %>
+                <% end %>
+              </td>
+              <td><%= user.introduction %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+<% elsif @books.present? %>
+  <div class="container">
+    <div class="row">
+      <div class="col" %>
+      <h2>Books search for "<%= @word %>"</h2>
+        <table class= "border-top border-dark-subtle w-100">
+          <tr class= "border-top border-dark-subtle">
+            <th></th>
+            <th><h3>name</h3></th>
+            <th><h3>Opinion</h3></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% @books.each do |book| %>
+            <tr class= "border-top border-dark-subtle">
+              <td><%= image_tag book.user.get_profile_image, size:'100x100' %></td>
+              <td>
+                <%= link_to book_path(book.id) do %>
+                  <%= book.title %>
+                <% end %>
+              </td>
+              <td><%= book.body %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <h3>data not available</h3>
+<% end %>
+
