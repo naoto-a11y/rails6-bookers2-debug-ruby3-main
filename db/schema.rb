@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_03_18_025110) do
+ActiveRecord::Schema.define(version: 2025_03_29_055318) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,9 +56,32 @@ ActiveRecord::Schema.define(version: 2025_03_18_025110) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "room_id"
+  end
+
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "room_id"
+    t.text "message"
+  end
+
+  create_table "read_counts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "book_id"
+    t.integer "count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -68,6 +91,12 @@ ActiveRecord::Schema.define(version: 2025_03_18_025110) do
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -5,11 +5,26 @@ class BooksController < ApplicationController
     @user = @book.user
     @booknew = Book.new
     @bookcomment = BookComment.new
+    @readcount = ReadCount.find_or_create_by(user_id: current_user.id, book_id: @book.id) do |readcount|
+      readcount.count = 0
+    end
+    @readcount.increment!(:count)
+    @countmeter = @readcount.count
   end
 
   def index
-    @books = Book.all
     @booknew = Book.new
+    
+    if params[:latest]
+      @books = Book.latest
+    elsif params[:old]
+      @books = Book.old
+    elsif params[:favorites_count]
+      @books = Book.favorites_count
+    else
+      @books = Book.all
+    end
+
   end
 
   def create

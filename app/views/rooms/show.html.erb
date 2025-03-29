@@ -1,0 +1,15 @@
+<% if @message.present? %>
+  <% @messages.each do |m| %>
+    <div class="chat-hukidashi"> 
+      name: <strong><%= m.user.name %></strong><br>
+      <strong><%= m.message %></strong> <br>
+      <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
+    </div>
+  <% end %>
+<% end %>
+
+<%= form_with model: @message, url: room_messages_path(@room) do |f| %>
+  <%= f.text_field :message, placeholder: "メッセージを入力して下さい" , size: 70, class:"form-text-field" %>
+    <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit "投稿",class: 'form-submit'%>
+<% end %>

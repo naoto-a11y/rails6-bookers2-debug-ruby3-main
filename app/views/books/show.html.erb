@@ -25,6 +25,9 @@
           <td id="favorites_<%= @book.id %>">
             <%= render 'favorites/favorites', book: @book %>
           </td>
+          <td>
+            <p>閲覧数: <%= @countmeter %>回</p>
+          </td>
 
           <td id="comment_count">
             <%= render 'book_comments/book_comments_count', book: @book %>
