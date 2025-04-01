@@ -13,6 +13,75 @@
       |<%= link_to '古い順', books_path(old: "true") %>
       |<%= link_to 'いいね順', books_path(favorites_count: "true") %>
       <%= render 'index', books: @books %>
+
+      <h3>7日間の投稿</h3>
+      <table class="w-100 mt-3 table-bordered">
+        <tr>
+          <th class="p-2">6日前</th>
+          <th class="p-2">5日前</th>
+          <th class="p-2" >4日前</th>
+          <th class="p-2" >3日前</th>
+          <th class="p-2" >2日前</th>
+          <th class="p-2" >1日前</th>
+          <th class="p-2" >今日</th>
+        </tr>
+        <tr>
+          <td class="p-2"><%= @six %></td>
+          <td class="p-2" ><%= @five %></td>
+          <td class="p-2" ><%= @four %></td>
+          <td class="p-2" ><%= @three %></td>
+          <td class="p-2" ><%= @two %></td>
+          <td class="p-2" ><%= @one %></td>
+          <td class="p-2" ><%= @today %></td>
+        </tr>
+      </table>
+
+      
+      <canvas id="myLineChart"></canvas>
+      <script>
+        $(document).on('turbolinks:load', function() {
+          var ctx = document.getElementById("myLineChart");
+          var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
+              datasets: [
+                {
+                  label: '投稿した本の数',
+                  data: [
+                    <%= @six %>,
+                    <%= @five %>, 
+                    <%= @four %>, 
+                    <%= @three %>, 
+                    <%= @two %>, 
+                    <%= @one %>, 
+                    <%= @today %>
+                  ],
+                  borderColor: "rgba(0,0,255,1)",
+                  backgroundColor: "rgba(0,0,0,0)",
+                  tension: 0.4
+                }
+              ],
+            },
+            options: {
+              title: {
+                display: true,
+                text: '7日間の投稿数の比較'
+              },
+              responsive: true,
+              scales: {
+                y:{
+                  suggestedMin: 0,
+                  suggestedMax: 10
+                },
+                x:{
+                  stacked: true
+                },
+              },
+            }
+          });
+        });
+      </script>
     </div>
   </div>
 </div>

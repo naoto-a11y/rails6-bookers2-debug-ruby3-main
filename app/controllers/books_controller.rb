@@ -25,6 +25,14 @@ class BooksController < ApplicationController
       @books = Book.all
     end
 
+    @six = Book.sixago.count
+    @five = Book.fiveago.count
+    @four = Book.fourago.count
+    @three = Book.threeago.count
+    @two = Book.twoago.count
+    @one = Book.yesterday.count
+    @today = Book.today.count
+
   end
 
   def create

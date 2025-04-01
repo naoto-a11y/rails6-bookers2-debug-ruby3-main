@@ -23,6 +23,23 @@ class UsersController < ApplicationController
         @entry = Entry.new
       end
     end
+
+    @today = Book.today.count
+    @yesterday = Book.yesterday.count
+    if @yesterday > 0
+      @thedaybefore = ((@today.to_f / @yesterday.to_f) * 100).to_i
+    else
+      @thedaybefore = 0
+    end
+
+    @week = Book.week.count
+    @lastweek = Book.lastweek.count
+    if @lastweek > 0
+      @theweekbefore = ((@week.to_f / @lastweek.to_f) * 100).to_i
+    else
+      @theweekbefore = 0
+    end
+
   end
 
   def index

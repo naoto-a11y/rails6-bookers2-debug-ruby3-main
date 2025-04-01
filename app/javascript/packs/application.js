@@ -13,6 +13,9 @@ import "bootstrap"
 
 import "../stylesheets/application" 
 
+import Chart from "chart.js/auto";
+window.Chart = Chart;
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
